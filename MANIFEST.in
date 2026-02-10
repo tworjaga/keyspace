@@ -1,0 +1,28 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+include SECURITY.md
+include CODE_OF_CONDUCT.md
+include requirements.txt
+include requirements-dev.txt
+include start.bat
+include DOCUMENTATION_INDEX.md
+include QUICKSTART.md
+include INSTALL.md
+include DOWNLOAD.md
+include API.md
+include FAQ.md
+include USER_GUIDE.md
+
+recursive-include templates *.html
+recursive-include docs *.md *.rst *.txt
+recursive-include packaging *.sh *.spec *.control *.rules *.changelog *.postinst *.prerm
+recursive-include tests *.py
+
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude *.dylib
+global-exclude *.dll

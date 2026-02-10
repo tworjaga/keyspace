@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  bruteforce-tool:
+    build: .
+    container_name: bruteforce-tool
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./wordlists:/app/wordlists:ro
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_QPA_PLATFORM=xcb
+    network_mode: host
+    # For GUI applications, you might need to run with host networking
+    # and X11 forwarding. Uncomment the following for GUI support:
+    # volumes:
+    #   - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    #   - ${HOME}/.Xauthority:/root/.Xauthority:rw
+    # environment:
+    #   - DISPLAY=${DISPLAY}
+    #   - XAUTHORITY=/root/.Xauthority
+    # command: xvfb-run -a python main.py
+
+  # Optional: Web interface service
+  bruteforce-web:
+    build: .
+    container_name: bruteforce-web
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - WEB_INTERFACE=true
+    command: python web_app.py
+    depends_on:
+      - bruteforce-tool
+
+  # Optional: API service
+  bruteforce-api:
+    build: .
+    container_name: bruteforce-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - API_MODE=true
+    command: python api_server.py
+    depends_on:
+      - bruteforce-tool
