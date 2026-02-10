@@ -3,6 +3,14 @@
 Advanced password cracking tool with modern GUI built using PyQt6. Features multiple attack types including dictionary attacks, brute force, rule-based attacks, and more.
 
 
+## ⚠️ Legal & Ethical Notice
+
+This project is intended for **educational purposes, security research, and authorized penetration testing only**.
+
+You must own the target system or have **explicit permission** to test it.
+The author is **not responsible** for misuse or illegal activity.
+
+
 ## Features
 
 - **Multiple Attack Types**:
@@ -181,3 +189,4 @@ This project is for educational purposes. Use responsibly.
 ## Contributing
 
 Contributions welcome! Please ensure all code follows security best practices and includes proper error handling.
+
