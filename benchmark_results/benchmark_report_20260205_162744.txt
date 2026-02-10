@@ -1,0 +1,90 @@
+BruteForce Tool Performance Benchmark Report
+==================================================
+
+System Information:
+  CPU Cores: 6
+  Logical CPUs: 6
+  Memory: 15.9 GB
+  Platform: win32
+
+Benchmark Summary:
+  Total Tests: 8
+  Successful: 8
+  Failed: 0
+  Total Passwords Tested: 6,505
+  Average Speed: 239.9 p/s
+  System Rating: Needs Optimization
+
+Attack Type Performance:
+  Dictionary Attack (WPA2): 302.3 p/s
+  Pin Code Attack: 265.7 p/s
+  Rule-based Attack: 260.8 p/s
+  Brute Force Attack: 242.6 p/s
+  Combinator Attack: 224.8 p/s
+  Hybrid Attack: 219.8 p/s
+  Mask Attack: 160.5 p/s
+
+Detailed Results:
+------------------------------
+[SUCCESS] dictionary_attack:
+   Attack Type: Dictionary Attack (WPA2)
+   Duration: 0.2s
+   Passwords Tested: 51
+   Speed: 302.3 p/s
+   Memory Used: 54.6 MB
+
+[SUCCESS] brute_force_small:
+   Attack Type: Brute Force Attack
+   Duration: 0.3s
+   Passwords Tested: 59
+   Speed: 201.3 p/s
+   Memory Used: 205.5 MB
+
+[SUCCESS] brute_force_medium:
+   Attack Type: Brute Force Attack
+   Duration: 0.1s
+   Passwords Tested: 36
+   Speed: 284.0 p/s
+   Memory Used: -41.1 MB
+
+[SUCCESS] rule_based_attack:
+   Attack Type: Rule-based Attack
+   Duration: 24.1s
+   Passwords Tested: 6,274
+   Speed: 260.8 p/s
+   Memory Used: -733.8 MB
+
+[SUCCESS] hybrid_attack:
+   Attack Type: Hybrid Attack
+   Duration: 0.1s
+   Passwords Tested: 12
+   Speed: 219.8 p/s
+   Memory Used: -0.1 MB
+
+[SUCCESS] mask_attack:
+   Attack Type: Mask Attack
+   Duration: 0.0s
+   Passwords Tested: 5
+   Speed: 160.5 p/s
+   Memory Used: -1.2 MB
+
+[SUCCESS] combinator_attack:
+   Attack Type: Combinator Attack
+   Duration: 0.0s
+   Passwords Tested: 4
+   Speed: 224.8 p/s
+   Memory Used: -0.2 MB
+
+[SUCCESS] pin_attack:
+   Attack Type: Pin Code Attack
+   Duration: 0.2s
+   Passwords Tested: 64
+   Speed: 265.7 p/s
+   Memory Used: -4.5 MB
+
+Performance Recommendations:
+------------------------------
+• Consider using GPU acceleration for better performance
+• Optimize memory usage in attack threads
+• Regular benchmarking helps track performance improvements
+• Consider attack type selection based on target characteristics

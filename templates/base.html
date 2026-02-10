@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BruteForce Tool{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            color: #dc3545 !important;
+        }
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+        .progress {
+            height: 25px;
+        }
+        .attack-running {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .status-ready { color: #28a745; }
+        .status-running { color: #007bff; }
+        .status-error { color: #dc3545; }
+        .status-completed { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-shield-alt"></i> BruteForce Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showComplianceModal()">
+                            <i class="fas fa-clipboard-check"></i> Compliance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAuditModal()">
+                            <i class="fas fa-history"></i> Audit Log
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> {{ current_user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Compliance Report Modal -->
+    <div class="modal fade" id="complianceModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Compliance Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="complianceContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit Log Modal -->
+    <div class="modal fade" id="auditModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Audit Log</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="auditContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Auto-refresh attack status
+        function updateAttackStatus() {
+            fetch('/api/attack_status')
+                .then(response => response.json())
+                .then(data => {
+                    $('#attackProgress').css('width', data.progress + '%');
+                    $('#attackProgressText').text(data.progress + '%');
+                    $('#attackSpeed').text(data.speed + ' attempts/sec');
+                    $('#attackETA').text('ETA: ' + data.eta);
+                    $('#attackAttempts').text(data.attempts.toLocaleString() + ' attempts');
+
+                    const statusElement = $('#attackStatus');
+                    statusElement.removeClass('status-ready status-running status-error status-completed');
+                    statusElement.addClass('status-' + data.status.toLowerCase().split(':')[0]);
+                    statusElement.text(data.status);
+
+                    if (data.running) {
+                        statusElement.addClass('attack-running');
+                    } else {
+                        statusElement.removeClass('attack-running');
+                    }
+                })
+                .catch(error => console.error('Error updating status:', error));
+        }
+
+        // Update status every 2 seconds
+        setInterval(updateAttackStatus, 2000);
+
+        // Modal functions
+        function showComplianceModal() {
+            $('#complianceModal').modal('show');
+            fetch('/api/compliance_report')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '<h6>Report Generated: ' + new Date(data.generated_at).toLocaleString() + '</h6>';
+                    html += '<h6>Overall Status: <span class="badge bg-' +
+                           (data.overall_status === 'pass' ? 'success' :
+                            data.overall_status === 'warning' ? 'warning' : 'danger') +
+                           '">' + data.overall_status.toUpperCase() + '</span></h6>';
+
+                    html += '<div class="mt-3"><h6>Checks:</h6><ul class="list-group">';
+                    data.checks.forEach(check => {
+                        html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                        html += check.name + '<span class="badge bg-' +
+                               (check.status === 'pass' ? 'success' :
+                                check.status === 'warning' ? 'warning' : 'danger') +
+                               '">' + check.status + '</span></li>';
+                    });
+                    html += '</ul></div>';
+
+                    if (data.recommendations && data.recommendations.length > 0) {
+                        html += '<div class="mt-3"><h6>Recommendations:</h6><ul>';
+                        data.recommendations.forEach(rec => {
+                            html += '<li>' + rec + '</li>';
+                        });
+                        html += '</ul></div>';
+                    }
+
+                    $('#complianceContent').html(html);
+                })
+                .catch(error => {
+                    $('#complianceContent').html('<div class="alert alert-danger">Error loading compliance report</div>');
+                });
+        }
+
+        function showAuditModal() {
+            $('#auditModal').modal('show');
+            fetch('/api/audit_events')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '<div class="table-responsive"><table class="table table-striped">';
+                    html += '<thead><tr><th>Timestamp</th><th>Event</th><th>User</th><th>Action</th><th>Resource</th></tr></thead><tbody>';
+
+                    data.forEach(event => {
+                        html += '<tr>';
+                        html += '<td>' + new Date(event.timestamp).toLocaleString() + '</td>';
+                        html += '<td><span class="badge bg-secondary">' + event.event_type + '</span></td>';
+                        html += '<td>' + event.user_id + '</td>';
+                        html += '<td>' + event.action + '</td>';
+                        html += '<td>' + event.resource + '</td>';
+                        html += '</tr>';
+                    });
+
+                    html += '</tbody></table></div>';
+                    $('#auditContent').html(html);
+                })
+                .catch(error => {
+                    $('#auditContent').html('<div class="alert alert-danger">Error loading audit log</div>');
+                });
+        }
+
+        // Start/stop attack functions
+        function startAttack() {
+            const formData = {
+                target: $('#target').val(),
+                attack_type: $('#attackType').val(),
+                wordlist_path: $('#wordlistPath').val(),
+                min_length: parseInt($('#minLength').val()),
+                max_length: parseInt($('#maxLength').val()),
+                charset: $('#charset').val()
+            };
+
+            fetch('/api/start_attack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Attack started successfully');
+                    updateAttackStatus();
+                }
+            })
+            .catch(error => {
+                alert('Error starting attack');
+                console.error('Error:', error);
+            });
+        }
+
+        function stopAttack() {
+            fetch('/api/stop_attack', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Attack stopped');
+                    updateAttackStatus();
+                }
+            })
+            .catch(error => {
+                alert('Error stopping attack');
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

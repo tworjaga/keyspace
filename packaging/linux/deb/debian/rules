@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python3
+
+override_dh_auto_install:
+	dh_auto_install
+	# Install the application files
+	mkdir -p debian/bruteforce-tool/usr/share/bruteforce-tool
+	cp -r * debian/bruteforce-tool/usr/share/bruteforce-tool/
+	# Remove packaging directory from installation
+	rm -rf debian/bruteforce-tool/usr/share/bruteforce-tool/packaging
+	# Create executable script
+	mkdir -p debian/bruteforce-tool/usr/bin
+	echo '#!/bin/bash' > debian/bruteforce-tool/usr/bin/bruteforce-tool
+	echo 'cd /usr/share/bruteforce-tool && python3 main.py "$@"' >> debian/bruteforce-tool/usr/bin/bruteforce-tool
+	chmod +x debian/bruteforce-tool/usr/bin/bruteforce-tool
+	# Create desktop file
+	mkdir -p debian/bruteforce-tool/usr/share/applications
+	cat > debian/bruteforce-tool/usr/share/applications/bruteforce-tool.desktop << EOF
+[Desktop Entry]
+Name=BruteForce Tool
+Comment=Advanced Password Cracking Tool
+Exec=bruteforce-tool
+Icon=bruteforce-tool
+Terminal=false
+Type=Application
+Categories=Utility;Security;
+EOF
+	# Create icon
+	mkdir -p debian/bruteforce-tool/usr/share/icons/hicolor/256x256/apps
+	cp debian/bruteforce-tool/usr/share/bruteforce-tool/icon.png debian/bruteforce-tool/usr/share/icons/hicolor/256x256/apps/bruteforce-tool.png 2>/dev/null || echo "Icon not found, skipping"
+
+override_dh_auto_build:
+	# Skip build step as we're installing directly

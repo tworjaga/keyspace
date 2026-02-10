@@ -1,0 +1,49 @@
+{
+  "system_info": {
+    "cpu_count": 6,
+    "cpu_count_logical": 6,
+    "memory_total": 17094955008,
+    "memory_available": 2635464704,
+    "platform": "win32",
+    "python_version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "timestamp": "2026-02-05T04:25:16.502110"
+  },
+  "benchmark_timestamp": "2026-02-05T04:25:16.520464",
+  "results": {
+    "dictionary_attack": {
+      "config_name": "dictionary_attack",
+      "attack_type": "Dictionary Attack (WPA2)",
+      "config": {
+        "attack_type": "Dictionary Attack (WPA2)",
+        "wordlist_path": "benchmark_results\\test_wordlist_1000.txt",
+        "min_length": 6,
+        "max_length": 12,
+        "charset": "abcdefghijklmnopqrstuvwxyz",
+        "duration_limit": 3
+      },
+      "duration_actual": 0.016213178634643555,
+      "duration_limit": 3,
+      "passwords_tested": 0,
+      "passwords_per_second": 0.0,
+      "memory_used_mb": 0.90625,
+      "status": "completed",
+      "errors": 1,
+      "start_time": "2026-02-05T04:25:16.507387",
+      "end_time": "2026-02-05T04:25:16.518777",
+      "efficiency_score": 0.0
+    }
+  },
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "total_passwords_tested": 0,
+    "average_speed_pps": 0.0,
+    "max_speed_pps": 0.0,
+    "min_speed_pps": 0.0,
+    "attack_type_averages": {
+      "Dictionary Attack (WPA2)": 0.0
+    },
+    "system_efficiency_rating": "Needs Optimization"
+  }
+}

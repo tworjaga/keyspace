@@ -1,0 +1,35 @@
+BruteForce Tool Performance Benchmark Report
+==================================================
+
+System Information:
+  CPU Cores: 6
+  Logical CPUs: 6
+  Memory: 15.9 GB
+  Platform: win32
+
+Benchmark Summary:
+  Total Tests: 1
+  Successful: 1
+  Failed: 0
+  Total Passwords Tested: 0
+  Average Speed: 0.0 p/s
+  System Rating: Needs Optimization
+
+Attack Type Performance:
+  Dictionary Attack (WPA2): 0.0 p/s
+
+Detailed Results:
+------------------------------
+[SUCCESS] dictionary_attack:
+   Attack Type: Dictionary Attack (WPA2)
+   Duration: 0.0s
+   Passwords Tested: 0
+   Speed: 0.0 p/s
+   Memory Used: 0.1 MB
+
+Performance Recommendations:
+------------------------------
+• Consider using GPU acceleration for better performance
+• Optimize memory usage in attack threads
+• Regular benchmarking helps track performance improvements
+• Consider attack type selection based on target characteristics

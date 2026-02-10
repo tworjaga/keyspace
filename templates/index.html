@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - BruteForce Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-tachometer-alt"></i> Attack Dashboard</h2>
+        <hr>
+    </div>
+</div>
+
+<!-- Attack Status Card -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-play-circle"></i> Current Attack Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h3 id="attackStatus" class="status-ready">Ready</h3>
+                            <small class="text-muted">Status</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h3 id="attackSpeed">0.0</h3>
+                            <small class="text-muted">Attempts/sec</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h3 id="attackETA">00:00:00</h3>
+                            <small class="text-muted">Estimated Time</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h3 id="attackAttempts">0</h3>
+                            <small class="text-muted">Total Attempts</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="progress">
+                        <div id="attackProgress" class="progress-bar progress-bar-striped progress-bar-animated"
+                             role="progressbar" style="width: 0%">
+                            <span id="attackProgressText">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Attack Configuration Card -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-cogs"></i> Attack Configuration</h5>
+            </div>
+            <div class="card-body">
+                <form id="attackForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="target" class="form-label">Target</label>
+                                <input type="text" class="form-control" id="target" placeholder="Enter target hash or password">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="attackType" class="form-label">Attack Type</label>
+                                <select class="form-select" id="attackType">
+                                    <option value="Dictionary Attack (WPA2)">Dictionary Attack (WPA2)</option>
+                                    <option value="Brute Force Attack">Brute Force Attack</option>
+                                    <option value="Rule-based Attack">Rule-based Attack</option>
+                                    <option value="Hybrid Attack">Hybrid Attack</option>
+                                    <option value="Mask Attack">Mask Attack</option>
+                                    <option value="Combinator Attack">Combinator Attack</option>
+                                    <option value="Pin Code Attack">PIN Code Attack</option>
+                                    <option value="Rainbow Table Attack">Rainbow Table Attack</option>
+                                    <option value="Markov Chain Attack">Markov Chain Attack</option>
+                                    <option value="Neural Network Attack">Neural Network Attack</option>
+                                    <option value="Distributed Attack">Distributed Attack</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="wordlistPath" class="form-label">Wordlist Path</label>
+                                <input type="text" class="form-control" id="wordlistPath" placeholder="/path/to/wordlist.txt">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="charset" class="form-label">Character Set</label>
+                                <input type="text" class="form-control" id="charset"
+                                       value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="minLength" class="form-label">Minimum Length</label>
+                                <input type="number" class="form-control" id="minLength" value="8" min="1" max="32">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="maxLength" class="form-label">Maximum Length</label>
+                                <input type="number" class="form-control" id="maxLength" value="16" min="1" max="32">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-success" onclick="startAttack()">
+                                    <i class="fas fa-play"></i> Start Attack
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="stopAttack()">
+                                    <i class="fas fa-stop"></i> Stop Attack
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Information Card -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> System Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Version:</strong><br>
+                        <span class="text-muted">1.0.0</span>
+                    </div>
+                    <div class="col-6">
+                        <strong>Python:</strong><br>
+                        <span class="text-muted">{{ python_version or '3.9+' }}</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Platform:</strong><br>
+                        <span class="text-muted">{{ platform or 'Cross-platform' }}</span>
+                    </div>
+                    <div class="col-6">
+                        <strong>User:</strong><br>
+                        <span class="text-muted">{{ current_user.username }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-shield-alt"></i> Security Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-lock text-success me-2"></i>
+                    <span>Session Encrypted</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-user-check text-success me-2"></i>
+                    <span>User Authenticated</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-clipboard-check text-success me-2"></i>
+                    <span>Audit Logging Active</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-gavel text-info me-2"></i>
+                    <span>Compliance Monitoring</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

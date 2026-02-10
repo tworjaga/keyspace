@@ -1,0 +1,209 @@
+{
+  "system_info": {
+    "cpu_count": 6,
+    "cpu_count_logical": 6,
+    "memory_total": 17094955008,
+    "memory_available": 3534360576,
+    "platform": "win32",
+    "python_version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "timestamp": "2026-02-05T16:27:03.049692"
+  },
+  "benchmark_timestamp": "2026-02-05T16:27:03.049886",
+  "results": {
+    "dictionary_attack": {
+      "config_name": "dictionary_attack",
+      "attack_type": "Dictionary Attack (WPA2)",
+      "config": {
+        "attack_type": "Dictionary Attack (WPA2)",
+        "wordlist_path": "benchmark_results\\test_wordlist_1000.txt",
+        "min_length": 6,
+        "max_length": 12,
+        "charset": "abcdefghijklmnopqrstuvwxyz",
+        "duration_limit": 30
+      },
+      "duration_actual": 0.16867899894714355,
+      "duration_limit": 30,
+      "passwords_tested": 51,
+      "passwords_per_second": 302.3494348338,
+      "memory_used_mb": 54.6328125,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:03.053906",
+      "end_time": "2026-02-05T16:27:03.218946",
+      "efficiency_score": 30.23494348338
+    },
+    "brute_force_small": {
+      "config_name": "brute_force_small",
+      "attack_type": "Brute Force Attack",
+      "config": {
+        "attack_type": "Brute Force Attack",
+        "wordlist_path": "",
+        "min_length": 4,
+        "max_length": 6,
+        "charset": "abcdefghijklmnopqrstuvwxyz",
+        "duration_limit": 30
+      },
+      "duration_actual": 0.29310154914855957,
+      "duration_limit": 30,
+      "passwords_tested": 59,
+      "passwords_per_second": 201.2954219156844,
+      "memory_used_mb": 205.53125,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:05.225690",
+      "end_time": "2026-02-05T16:27:05.517069",
+      "efficiency_score": 201.2954219156844
+    },
+    "brute_force_medium": {
+      "config_name": "brute_force_medium",
+      "attack_type": "Brute Force Attack",
+      "config": {
+        "attack_type": "Brute Force Attack",
+        "wordlist_path": "",
+        "min_length": 6,
+        "max_length": 8,
+        "charset": "abcdefghijklmnopqrstuvwxyz0123456789",
+        "duration_limit": 60
+      },
+      "duration_actual": 0.12678003311157227,
+      "duration_limit": 60,
+      "passwords_tested": 36,
+      "passwords_per_second": 283.9563858475912,
+      "memory_used_mb": -41.0703125,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:07.607996",
+      "end_time": "2026-02-05T16:27:07.731442",
+      "efficiency_score": 283.9563858475912
+    },
+    "rule_based_attack": {
+      "config_name": "rule_based_attack",
+      "attack_type": "Rule-based Attack",
+      "config": {
+        "attack_type": "Rule-based Attack",
+        "wordlist_path": "benchmark_results\\test_wordlist_500.txt",
+        "min_length": 6,
+        "max_length": 12,
+        "charset": "abcdefghijklmnopqrstuvwxyz0123456789!@#$",
+        "duration_limit": 45
+      },
+      "duration_actual": 24.059420347213745,
+      "duration_limit": 45,
+      "passwords_tested": 6274,
+      "passwords_per_second": 260.77103726759464,
+      "memory_used_mb": -733.81640625,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:09.742937",
+      "end_time": "2026-02-05T16:27:33.799803",
+      "efficiency_score": 52.15420745351893
+    },
+    "hybrid_attack": {
+      "config_name": "hybrid_attack",
+      "attack_type": "Hybrid Attack",
+      "config": {
+        "attack_type": "Hybrid Attack",
+        "wordlist_path": "benchmark_results\\test_wordlist_300.txt",
+        "min_length": 8,
+        "max_length": 12,
+        "charset": "abcdefghijklmnopqrstuvwxyz0123456789",
+        "duration_limit": 45
+      },
+      "duration_actual": 0.05459332466125488,
+      "duration_limit": 45,
+      "passwords_tested": 12,
+      "passwords_per_second": 219.80709316493508,
+      "memory_used_mb": -0.0859375,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:35.806820",
+      "end_time": "2026-02-05T16:27:35.859191",
+      "efficiency_score": 73.26903105497836
+    },
+    "mask_attack": {
+      "config_name": "mask_attack",
+      "attack_type": "Mask Attack",
+      "config": {
+        "attack_type": "Mask Attack",
+        "wordlist_path": "",
+        "min_length": 8,
+        "max_length": 12,
+        "charset": "abcdefghijklmnopqrstuvwxyz0123456789!@#$",
+        "duration_limit": 30
+      },
+      "duration_actual": 0.031158447265625,
+      "duration_limit": 30,
+      "passwords_tested": 5,
+      "passwords_per_second": 160.47012732615084,
+      "memory_used_mb": -1.203125,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:37.866207",
+      "end_time": "2026-02-05T16:27:37.895440",
+      "efficiency_score": 80.23506366307542
+    },
+    "combinator_attack": {
+      "config_name": "combinator_attack",
+      "attack_type": "Combinator Attack",
+      "config": {
+        "attack_type": "Combinator Attack",
+        "wordlist_path": "benchmark_results\\test_wordlist_200.txt",
+        "min_length": 6,
+        "max_length": 10,
+        "charset": "abcdefghijklmnopqrstuvwxyz",
+        "duration_limit": 30
+      },
+      "duration_actual": 0.017794132232666016,
+      "duration_limit": 30,
+      "passwords_tested": 4,
+      "passwords_per_second": 224.7932041696814,
+      "memory_used_mb": -0.2265625,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:39.903224",
+      "end_time": "2026-02-05T16:27:39.918887",
+      "efficiency_score": 149.86213611312093
+    },
+    "pin_attack": {
+      "config_name": "pin_attack",
+      "attack_type": "Pin Code Attack",
+      "config": {
+        "attack_type": "Pin Code Attack",
+        "wordlist_path": "",
+        "min_length": 4,
+        "max_length": 6,
+        "charset": "0123456789",
+        "duration_limit": 20
+      },
+      "duration_actual": 0.24090576171875,
+      "duration_limit": 20,
+      "passwords_tested": 64,
+      "passwords_per_second": 265.6640486445402,
+      "memory_used_mb": -4.47265625,
+      "status": "completed",
+      "errors": 0,
+      "start_time": "2026-02-05T16:27:41.926154",
+      "end_time": "2026-02-05T16:27:42.165147",
+      "efficiency_score": 2.6566404864454016
+    }
+  },
+  "summary": {
+    "total_tests": 8,
+    "successful_tests": 8,
+    "failed_tests": 0,
+    "total_passwords_tested": 6505,
+    "average_speed_pps": 239.88834414624722,
+    "max_speed_pps": 302.3494348338,
+    "min_speed_pps": 160.47012732615084,
+    "attack_type_averages": {
+      "Dictionary Attack (WPA2)": 302.3494348338,
+      "Brute Force Attack": 242.62590388163778,
+      "Rule-based Attack": 260.77103726759464,
+      "Hybrid Attack": 219.80709316493508,
+      "Mask Attack": 160.47012732615084,
+      "Combinator Attack": 224.7932041696814,
+      "Pin Code Attack": 265.6640486445402
+    },
+    "system_efficiency_rating": "Needs Optimization"
+  }
+}
