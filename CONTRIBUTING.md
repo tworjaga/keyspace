@@ -31,7 +31,7 @@ Click the "Fork" button on GitHub to create your own copy.
 ### 2. Clone Your Fork
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/keyspace.git
+git clone https://github.com/tworjaga/keyspace.git
 cd keyspace
 ```
 
@@ -430,3 +430,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 **Ready to contribute?** → [Fork the Repository](https://github.com/tworjaga/keyspace/fork)
 
 Thank you for helping make Keyspace better!
+
