@@ -1,5 +1,10 @@
 # Keyspace
 
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=tworjaga.keyspace&"  />
+</div>
+
+
 Advanced password cracking tool with modern GUI built using PyQt6. Features multiple attack types including dictionary attacks, brute force, rule-based attacks, and more.
 
 
@@ -189,4 +194,5 @@ This project is for educational purposes. Use responsibly.
 ## Contributing
 
 Contributions welcome! Please ensure all code follows security best practices and includes proper error handling.
+
 
